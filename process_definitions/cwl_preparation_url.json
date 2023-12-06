@@ -35,7 +35,7 @@
         "type": "string",
         "format": "local_or_url",
         "subtype": "local_or_url",
-        "pattern": "(local|url)"
+        "pattern": "^(local|url)$"
       }
     }
   ],
