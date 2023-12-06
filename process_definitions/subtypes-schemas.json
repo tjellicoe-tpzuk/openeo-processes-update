@@ -394,7 +394,7 @@
       "subtype": "local_or_url",
       "title": "Destination data type",
       "description": "String defining output file type.",
-      "pattern": "(local|url)"
+      "pattern": "^(local|url)$"
     }
   }
 }
