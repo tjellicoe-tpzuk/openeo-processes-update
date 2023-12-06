@@ -1,0 +1,101 @@
+{
+  "id": "run_cwl",
+  "parameters": [
+    {
+      "description": "Either source code, an absolute URL or a path pointing to a cwl script to be applied to the input data. This CWL script needs to comply with the OGC Best Practice definition and needs to contain exactly one input with id 'input_data'.",
+      "name": "url_cwl",
+      "schema": [
+        {
+          "description": "Absolute URL to the CWL file.",
+          "type": "string",
+          "format": "uri",
+          "subtype": "uri",
+          "pattern": "^https?://"
+        },
+        {
+          "description": "Path to a CWL file uploaded to the server.",
+          "type": "string",
+          "subtype": "file-path",
+          "pattern": "^[^\r\n\\:'\"]+$"
+        },
+        {
+          "description": "The multi-line source code of a CWL file, must contain a newline/line-break.",
+          "type": "string",
+          "subtype": "cwl-code",
+          "pattern": "(\r\n|\r|\n)"
+        }
+      ]
+    },
+    {
+      "name": "cwl_inputs",
+      "default": {},
+      "description": "A dictionary of additional parameter inputs to be passed into the cwl file when run. This can be provided either as a yml text string, as a URL or a path pointing to a yml file. Note, the inputs here must align with those names in the inputted CWL file.",
+      "optional": true,
+      "schema": [
+        {
+          "description": "A yml text string of inputs",
+          "type": "string",
+          "format": "yml-inputs",
+          "subtype": "yml-inputs",
+          "pattern": "(.+:.*(\r\n|\n|\r)*)+"
+        },
+        {
+          "description": "Absolute URL to a yml input file.",
+          "type": "string",
+          "format": "uri",
+          "subtype": "uri",
+          "pattern": "^https?://"
+        },
+        {
+          "description": "Path to a yml input file uploaded to the server.",
+          "type": "string",
+          "subtype": "file-path",
+          "pattern": "^[^\r\n\\:'\"]+$"
+        }
+      ]
+    },
+    {
+      "description": "The data to input to the cwl script, often in the form of a raster data cube. Potentially other data types could be supported, including URL pointing to a STAC catalog item. This data will be passed to the cwl as the 'input_data' input and so the type must match that defined in the cwl script here.",
+      "name": "data",
+      "schema": [
+        {
+          "description": "A raster data cube, an image collection stored at the back-end. Different back-ends have different internal representations for this data structure.",
+          "subtype": "raster-cube",
+          "title": "Raster data cube",
+          "type": "object"
+        },
+        {
+          "title": "Array",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "description": "Any data type."
+          }
+        },
+        {
+          "title": "Single Value",
+          "description": "A single value of any data type."
+        }
+      ]
+    }
+  ],
+  "process_graph": {
+    "run2": {
+      "arguments": {
+        "context": {
+          "from_parameter": "cwl_inputs"
+        },
+        "data": {
+          "from_parameter": "data"
+        },
+        "runtime": "Python",
+        "udf": {
+          "from_parameter": "url_cwl"
+        },
+        "version": "3"
+      },
+      "process_id": "run_udf",
+      "result": true
+    }
+  }
+}
