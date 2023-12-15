@@ -1,6 +1,8 @@
 ### Suggested update to openEO process specification to allow CWL scripts to be run within an openEO environment
 The primary purpose of this project is to define a number of new openEO processes that will allow the execution of CWL scripts within an openEO environment. These definitions will be defined, as with the current processes, in JSON format, for implementation to be completed separately by an implementation developer. This implementation is not to be done under this project, although a number of test scripts may be included to provide examples of what these scripts might look like.
 
+### This repository has now been superseded by the repository [here](https://github.com/tjellicoe-tpzuk/openeo-processes-cwl) which includes a full openeo implementation covering the new processes defined in this repository.
+
 Note, all JSON files here based on those found in the git repo for [openeo-processes](https://github.com/eodcgmbh/openeo-processes/tree/7044771f54525f6b613a8fc065f5f7d688eeca35)
 Note, any regex has been developed and testing using the web-app [here](https://regex101.com/r/wApQYM/1). Most of the regex pattern expressions here are just first attempts and need to be expanded to ensure accurate definitions.
 
